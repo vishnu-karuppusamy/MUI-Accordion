@@ -20,8 +20,8 @@ const Accordion = ({ title, content, expanded, color = "red", ...props }: IAccor
   const getColorWithOpacity = (colorName: string, opacity: number) => {
     const colorMap: Record<string, string> = {
       red: `rgba(255, 0, 0, ${opacity})`,
-      green: `rgba(0, 255, 0, ${opacity})`,
       blue: `rgba(0, 0, 255, ${opacity})`,
+      orange: `rgba(255, 165, 0, ${opacity})`,
       pink: `rgba(255, 192, 203, ${opacity})`,
       yellow: `rgba(255, 255, 0, ${opacity})`,
     };
