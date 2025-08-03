@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Stack, Typography } from '@mui/material';
 import { Stepper } from './components/Stepper';
 import { ActionButtonsContainer, BackButton, CreateShipmentButton, SaveLaterButton, ShipmentsPageContainer } from './styles';
@@ -7,6 +7,7 @@ import ShipmentDetails from './components/ShipmentDetails';
 import { SummarySection } from './components/SummarySection';
 import { LeftChevronIcon } from '../../assets/icons';
 import { ShippingMethod } from './components/ShippingMethod';
+import { useLoggedInLayout } from '../../components/layout/LoggedInLayout';
 
 const SHIPMENT_TRACKING_DATA = [
   {
@@ -37,11 +38,19 @@ const SHIPMENT_TRACKING_DATA = [
 ];
 
 const ShipmentsPage = () => {
+  const { setBreadcrumb } = useLoggedInLayout();
   const [selectedStepId, setSelectedStepId] = useState<number>(4);
+
+  useEffect(() => {
+    if (selectedStepId) {
+      const selectedStep = SHIPMENT_TRACKING_DATA.find((item) => item.id === selectedStepId);
+      selectedStep && setBreadcrumb([selectedStep.title]);
+    }
+  }, [selectedStepId]);
 
   return (
     <ShipmentsPageContainer>
-      <Stepper activeStepId={selectedStepId} style={{ marginBottom: '8px' }} />
+      <Stepper activeStepId={selectedStepId} style={{ marginBottom: '8px' }} onStepClick={setSelectedStepId} />
       <ShipmentDetails />
       <Stack direction="column" rowGap={3}>
         {SHIPMENT_TRACKING_DATA.map((item) => (

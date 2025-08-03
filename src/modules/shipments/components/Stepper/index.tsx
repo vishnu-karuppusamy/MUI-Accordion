@@ -34,24 +34,26 @@ const STEPS = [
 interface StepperProps {
   activeStepId: number;
   style?: React.CSSProperties;
+  onStepClick?: (stepId: number) => void;
 }
 
-export const Stepper = ({ activeStepId, style }: StepperProps) => {
+export const Stepper = ({ activeStepId, style, onStepClick }: StepperProps) => {
   return (
     <Stack
       direction="row"
-      spacing="18px"
+      gap="18px"
       alignItems="center"
       minHeight="40px"
       style={{
         ...style,
         overflowX: 'scroll',
+
       }}
       className='scrollbar'
     >
       {STEPS.map((step, index) => (
         <React.Fragment key={step.id}>
-          <StepContainer key={step.id}>
+          <StepContainer key={step.id} active={step.id === activeStepId} onClick={() => onStepClick?.(step.id)}>
             <StepIconContainer active={step.id === activeStepId}>
               {step.id < activeStepId ? <CheckCircleIcon /> : (
                 <ActiveStepText>{step.step}</ActiveStepText>

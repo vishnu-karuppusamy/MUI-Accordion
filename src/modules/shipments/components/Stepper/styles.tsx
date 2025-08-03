@@ -1,12 +1,14 @@
 import { Box, styled, Typography } from "@mui/material";
 
-export const StepContainer = styled(Box)(({ theme }) => ({
+export const StepContainer = styled(Box)<{ active?: boolean }>(({ active }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: "flex-start",
   gap: '12px',
   flexShrink: 0,
+  cursor: active ? 'default' : 'pointer',
+  margin: '0px !important',
 }));
 
 export const StepIconContainer = styled(Box)<{ active?: boolean }>(({ active }) => ({
@@ -43,4 +45,6 @@ export const StepDivider = styled(Box)(({ theme }) => ({
   flex: 1,
   borderRadius: '20px',
   backgroundColor: 'rgba(0, 87, 184, 1)',
+  margin: '0px !important',
+  minWidth: '8px',
 }));
